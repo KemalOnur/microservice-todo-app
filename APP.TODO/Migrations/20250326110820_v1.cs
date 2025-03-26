@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace APP.TODO.Migrations
 {
     /// <inheritdoc />
-    public partial class v2 : Migration
+    public partial class v1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Todo",
+                name: "Todos",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -25,11 +25,24 @@ namespace APP.TODO.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Todo", x => x.Id);
+                    table.PrimaryKey("PK_Todos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TodoTopic",
+                name: "Topics",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Topics", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TodoTopics",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -39,15 +52,15 @@ namespace APP.TODO.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TodoTopic", x => x.Id);
+                    table.PrimaryKey("PK_TodoTopics", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TodoTopic_Todo_TodoId",
+                        name: "FK_TodoTopics_Todos_TodoId",
                         column: x => x.TodoId,
-                        principalTable: "Todo",
+                        principalTable: "Todos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TodoTopic_Topics_TopicId",
+                        name: "FK_TodoTopics_Topics_TopicId",
                         column: x => x.TopicId,
                         principalTable: "Topics",
                         principalColumn: "Id",
@@ -55,13 +68,13 @@ namespace APP.TODO.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_TodoTopic_TodoId",
-                table: "TodoTopic",
+                name: "IX_TodoTopics_TodoId",
+                table: "TodoTopics",
                 column: "TodoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TodoTopic_TopicId",
-                table: "TodoTopic",
+                name: "IX_TodoTopics_TopicId",
+                table: "TodoTopics",
                 column: "TopicId");
         }
 
@@ -69,10 +82,13 @@ namespace APP.TODO.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "TodoTopic");
+                name: "TodoTopics");
 
             migrationBuilder.DropTable(
-                name: "Todo");
+                name: "Todos");
+
+            migrationBuilder.DropTable(
+                name: "Topics");
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using APP.TODO.Domain;
 using CORE.APP.Features;
 using MediatR;
-using System.Data.Entity.Core.Metadata.Edm;
 using System.Globalization;
 
 namespace APP.TODO.Features.Todos
@@ -49,8 +48,8 @@ namespace APP.TODO.Features.Todos
                     UpdatedAt = x.UpdatedAt,
                     Title = x.Title,
                     TopicIds = x.TopicIds,
-                    CreatedAtF = x.CreatedAt == null ? string.Empty : x.CreatedAt.Value.ToString("MM/dd/yyyy HH:mm:ss.", new CultureInfo("tr-TR")),
-                    UpdatedAtF= x.UpdatedAt == null ? string.Empty : x.UpdatedAt.Value.ToString("MM/dd/yyyy HH:mm:ss.", new CultureInfo("tr-TR")),
+                    CreatedAtF = x.CreatedAt == null ? string.Empty : x.CreatedAt.Value.ToString("MM/dd/yyyy HH:mm:ss"),
+                    UpdatedAtF= x.UpdatedAt == null ? string.Empty : x.UpdatedAt.Value.ToString("MM/dd/yyyy HH:mm:ss"),
 
                 });
 

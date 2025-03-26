@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APP.TODO.Migrations
 {
     [DbContext(typeof(TodoDb))]
-    [Migration("20250323070808_v3")]
-    partial class v3
+    [Migration("20250326110820_v1")]
+    partial class v1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "9.0.3");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.14");
 
             modelBuilder.Entity("APP.TODO.Domain.Todo", b =>
                 {

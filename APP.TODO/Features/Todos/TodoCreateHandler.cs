@@ -1,13 +1,8 @@
 ﻿using APP.TODO.Domain;
 using CORE.APP.Features;
 using MediatR;
-using System;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace APP.TODO.Features.Todos
 {
