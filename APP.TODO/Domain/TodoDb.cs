@@ -16,6 +16,8 @@ namespace APP.TODO.Domain
 
         public DbSet<TodoTopic> TodoTopics { get; set; }
 
+        public DbSet<Content> Contents { get; set; }
+
         public TodoDb(DbContextOptions options) : base(options) 
         {
             

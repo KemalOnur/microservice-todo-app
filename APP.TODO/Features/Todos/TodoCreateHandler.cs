@@ -3,6 +3,7 @@ using CORE.APP.Features;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace APP.TODO.Features.Todos
 {
@@ -21,7 +22,12 @@ namespace APP.TODO.Features.Todos
 
         public bool IsCompleted { get; set; }
 
-        public List<int> TopicIds { get; set; } 
+        public List<int> TopicIds { get; set; }
+
+        [JsonIgnore]
+        public override int Id { get => base.Id; set => base.Id = value; }
+
+        public  int? ContentId { get; set; }
     }
 
 
@@ -43,7 +49,8 @@ namespace APP.TODO.Features.Todos
                 Title = request.Title.Trim(),
                 CreatedAt = request.CreatedAt,
                 UpdatedAt = request.UpdatedAt,
-                TopicIds = request.TopicIds
+                TopicIds = request.TopicIds,
+                ContentId = request.ContentId
             };
 
             _db.Todos.Add(entity);

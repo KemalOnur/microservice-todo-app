@@ -1,4 +1,5 @@
 ﻿using CORE.APP.Domain;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -26,5 +27,10 @@ namespace APP.TODO.Domain
             get => TodoTopics?.Select(todoTopic => todoTopic.TopicId).ToList();
             set => TodoTopics = value?.Select(v => new TodoTopic() { TopicId = v}).ToList();
         }
+
+        public int? ContentId { get; set; }
+
+        public Content Content { get; set; }
+
     }
 }

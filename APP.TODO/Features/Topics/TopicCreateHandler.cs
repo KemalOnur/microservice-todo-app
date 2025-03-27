@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace APP.TODO.Features.Topics
@@ -18,6 +19,9 @@ namespace APP.TODO.Features.Topics
         [StringLength(1000)]
 
         public string Name { get; set; }
+
+        [JsonIgnore]
+        public override int Id { get => base.Id; set => base.Id = value; }
     }
 
     class TopicCreateHandler : TodoDbHandler, IRequestHandler<TopicCreateRequest, CommandResponse>

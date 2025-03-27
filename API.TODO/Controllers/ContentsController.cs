@@ -3,31 +3,31 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 using CORE.APP.Features;
-using APP.TODO.Features.Todos;
+using APP.TODO.Features.Contents;
 
 //Generated from Custom Template.
 namespace API.TODO.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TodosController : ControllerBase
+    public class ContentsController : ControllerBase
     {
-        private readonly ILogger<TodosController> _logger;
+        private readonly ILogger<ContentsController> _logger;
         private readonly IMediator _mediator;
 
-        public TodosController(ILogger<TodosController> logger, IMediator mediator)
+        public ContentsController(ILogger<ContentsController> logger, IMediator mediator)
         {
             _logger = logger;
             _mediator = mediator;
         }
 
-        // GET: api/Todos
+        // GET: api/Contents
         [HttpGet]
         public async Task<IActionResult> Get()
         {
             try
             {
-                var response = await _mediator.Send(new TodoQueryRequest());
+                var response = await _mediator.Send(new ContentQueryRequest());
                 var list = await response.ToListAsync();
                 if (list.Any())
                     return Ok(list);
@@ -35,18 +35,18 @@ namespace API.TODO.Controllers
             }
             catch (Exception exception)
             {
-                _logger.LogError("TodosGet Exception: " + exception.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, new CommandResponse(false, "An exception occured during TodosGet.")); 
+                _logger.LogError("ContentsGet Exception: " + exception.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, new CommandResponse(false, "An exception occured during ContentsGet.")); 
             }
         }
 
-        // GET: api/Todos/5
+        // GET: api/Contents/5
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
             try
             {
-                var response = await _mediator.Send(new TodoQueryRequest());
+                var response = await _mediator.Send(new ContentQueryRequest());
                 var item = await response.SingleOrDefaultAsync(r => r.Id == id);
                 if (item is not null)
                     return Ok(item);
@@ -54,14 +54,14 @@ namespace API.TODO.Controllers
             }
             catch (Exception exception)
             {
-                _logger.LogError("TodosGetById Exception: " + exception.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, new CommandResponse(false, "An exception occured during TodosGetById.")); 
+                _logger.LogError("ContentsGetById Exception: " + exception.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, new CommandResponse(false, "An exception occured during ContentsGetById.")); 
             }
         }
 
-        // POST: api/Todos
+		// POST: api/Contents
         [HttpPost]
-        public async Task<IActionResult> Post(TodoCreateRequest request)
+        public async Task<IActionResult> Post(ContentCreateRequest request)
         {
             try
             {
@@ -73,20 +73,20 @@ namespace API.TODO.Controllers
                         //return CreatedAtAction(nameof(Get), new { id = response.Id }, response);
                         return Ok(response);
                     }
-                    ModelState.AddModelError("TodosPost", response.Message);
+                    ModelState.AddModelError("ContentsPost", response.Message);
                 }
                 return BadRequest(new CommandResponse(false, string.Join("|", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage))));
             }
             catch (Exception exception)
             {
-                _logger.LogError("TodosPost Exception: " + exception.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, new CommandResponse(false, "An exception occured during TodosPost."));
+                _logger.LogError("ContentsPost Exception: " + exception.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, new CommandResponse(false, "An exception occured during ContentsPost.")); 
             }
         }
 
-        // PUT: api/Todos
+        // PUT: api/Contents
         [HttpPut]
-        public async Task<IActionResult> Put(TodoUpdateRequest request)
+        public async Task<IActionResult> Put(ContentUpdateRequest request)
         {
             try
             {
@@ -98,37 +98,37 @@ namespace API.TODO.Controllers
                         //return NoContent();
                         return Ok(response);
                     }
-                    ModelState.AddModelError("TodosPut", response.Message);
+                    ModelState.AddModelError("ContentsPut", response.Message);
                 }
                 return BadRequest(new CommandResponse(false, string.Join("|", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage))));
             }
             catch (Exception exception)
             {
-                _logger.LogError("TodosPut Exception: " + exception.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, new CommandResponse(false, "An exception occured during TodosPut."));
+                _logger.LogError("ContentsPut Exception: " + exception.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, new CommandResponse(false, "An exception occured during ContentsPut.")); 
             }
         }
 
-        // DELETE: api/Todos/5
+        // DELETE: api/Contents/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                var response = await _mediator.Send(new TodoDeleteRequest() { Id = id });
+                var response = await _mediator.Send(new ContentDeleteRequest() { Id = id });
                 if (response.IsSuccessful)
                 {
                     //return NoContent();
                     return Ok(response);
                 }
-                ModelState.AddModelError("TodosDelete", response.Message);
+                ModelState.AddModelError("ContentsDelete", response.Message);
                 return BadRequest(new CommandResponse(false, string.Join("|", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage))));
             }
             catch (Exception exception)
             {
-                _logger.LogError("TodosDelete Exception: " + exception.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError, new CommandResponse(false, "An exception occured during TodosDelete."));
+                _logger.LogError("ContentsDelete Exception: " + exception.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, new CommandResponse(false, "An exception occured during ContentsDelete.")); 
             }
         }
-    }
+	}
 }
